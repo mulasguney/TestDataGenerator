@@ -65,7 +65,7 @@ for (var i = 1; i <= config.NumberOfGenerations; i++)
         .Replace("$mac$", macAddressGenerator.Generate())
         .Replace("$ip$", ipAddressGenerator.Generate())
         .Replace("$hostname$",hostnameGenerator.Generate(i)));
-    if (i % 21 == 0)
+    if (i % 20 == 0)
     {
         File.AppendAllLines(config.OutputFile!, listOfLines);
         listOfLines.Clear();
