@@ -2,20 +2,37 @@ namespace TestDataGenerator;
 
 public class IpAddressGenerator
 {
+    private readonly HashSet<string> _ipList = new HashSet<string>();
+
     public string Generate()
     {
-        var number = new Random();
-        var firstByte = number.Next(1, 255);
-        var randomByte = number.Next(0, 255);
-        var lastByte = number.Next(1, 24);
-        
-        
-        return $"{firstByte}.{randomByte}.{randomByte}/{lastByte}";
+        var ip = IpGenerate();
 
+        if (GeneralConfig.GetDefaultConfig().GenerateUniqueIps)
+        {
+            while (_ipList.Contains(ip))
+            {
+                ip = Generate();
+            }
 
+            if (!_ipList.Contains(ip))
+            {
+                _ipList.Add(ip);
+            }
+
+        }
+
+        return ip;
     }
-    
 
-
-
+    private string IpGenerate()
+    {
+        var number = new Random();
+        //It can takes value between 0-255
+        var firstOctet = number.Next(0, 256);
+        var secondOctet = number.Next(0, 256);
+        var thirdOctet = number.Next(0, 256);
+        var lastOctet = number.Next(0, 256); 
+        return $"{firstOctet}.{secondOctet}.{thirdOctet}.{lastOctet}";
+    }
 }

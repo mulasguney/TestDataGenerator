@@ -23,6 +23,7 @@ public class GeneralConfig
             NumberOfGenerations = 100,
             OutputFile = ".\\default.out",
             HostnameFormat = "PC#",
+            GenerateUniqueIps = true,
             MacConfig = new MacAddressConfig
             {
                 Separator = '-',
