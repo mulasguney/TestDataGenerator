@@ -3,16 +3,17 @@ namespace TestDataGenerator;
 public class IpAddressGenerator
 {
     private readonly HashSet<string> _ipList = new HashSet<string>();
-
-    public string Generate()
+    
+    public string Generate(bool uniqueIp)
     {
         var ip = IpGenerate();
-
-        if (GeneralConfig.GetDefaultConfig().GenerateUniqueIps)
+        
+        if (uniqueIp)
         {
+
             while (_ipList.Contains(ip))
             {
-                ip = Generate();
+                ip = IpGenerate();
             }
 
             if (!_ipList.Contains(ip))

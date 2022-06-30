@@ -2,16 +2,23 @@ namespace TestDataGenerator;
 
 public class MacAddressGenerator
 {
+    private readonly MacAddressConfig _config;
     private readonly HashSet<string> _macAddressList = new HashSet<string>();
-    public string Generate(string separator,string stringCase)
-    {
-        var mac = MacAddressGenerate(separator,stringCase);
 
-        if (GeneralConfig.GetDefaultConfig().GenerateUniqueMacs)
+    public MacAddressGenerator(MacAddressConfig config)
+    {
+        _config = config ?? throw new Exception("Configuration cannot be null");
+    }
+    
+    public string Generate(bool uniqueMac)
+    {
+        var mac = MacAddressGenerate();
+
+        if (uniqueMac)
         {
             while (_macAddressList.Contains(mac))
             {
-                mac = Generate(separator,stringCase);
+                mac = MacAddressGenerate();
             }
 
             if (!_macAddressList.Contains(mac))
@@ -24,20 +31,17 @@ public class MacAddressGenerator
         return mac;
     }
 
-    private string MacAddressGenerate(string separator,string stringCase)
+    private string MacAddressGenerate()
     {
-        var newSeparator =
-            separator.Replace(GeneralConfig.GetDefaultConfig().MacConfig.Separator.ToString(), separator);
-        
 
         var random = new Random();
         var buffer = new byte[6];
         random.NextBytes(buffer);
-        var result = String.Concat(buffer.Select(x => $"{x.ToString("X2")}{newSeparator}").ToArray());
+        var result = String.Concat(buffer.Select(x => $"{x.ToString("X2")}{_config.Separator}").ToArray());
 
-
-        return stringCase == "upper" ? result.TrimEnd(newSeparator.ToCharArray()).ToUpper() 
-            : result.TrimEnd(newSeparator.ToCharArray()).ToLower();
+        return _config.StringCasing!.ToLower() == "upper" ? result.TrimEnd(_config.Separator).ToUpper() 
+            
+            : result.TrimEnd(_config.Separator).ToLower();
 
     }
     

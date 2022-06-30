@@ -49,22 +49,25 @@ var configFile = File.ReadAllText(configFilePath);
 var config = JsonSerializer.Deserialize<GeneralConfig>(configFile);
 
 var ipAddressGenerator = new IpAddressGenerator();
-var macAddressGenerator = new MacAddressGenerator();
+var macAddressGenerator = new MacAddressGenerator(config!.MacConfig);
 var hostnameGenerator = new HostnameGenerator();
 
 
-if (File.Exists(config!.OutputFile))
+if (File.Exists(config.OutputFile))
     File.Delete(config.OutputFile);
 
+if (config.NumberOfGenerations >= 4294967296)
+{
+    throw new Exception("You cannot produce more than 4294967296 Ips");
+}
 
 var listOfLines = new List<string>();
 for (var i = 1; i <= config.NumberOfGenerations; i++)
 {
     if (config.MacConfig.StringCasing != null)
         listOfLines.Add(config.Format
-            .Replace("$mac$",
-                macAddressGenerator.Generate(config.MacConfig.Separator.ToString(), config.MacConfig.StringCasing))
-            .Replace("$ip$", ipAddressGenerator.Generate())
+            .Replace("$mac$",macAddressGenerator.Generate(config.GenerateUniqueMacs))
+            .Replace("$ip$", ipAddressGenerator.Generate(config.GenerateUniqueIps))
             .Replace("$hostname$", hostnameGenerator.Generate(i)));
 
 
@@ -77,6 +80,8 @@ for (var i = 1; i <= config.NumberOfGenerations; i++)
 
 if (listOfLines.Any())
     File.AppendAllLines(config.OutputFile!, listOfLines);
+
+
 
 
 
