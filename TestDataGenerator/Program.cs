@@ -60,13 +60,14 @@ if (File.Exists(config!.OutputFile))
 var listOfLines = new List<string>();
 for (var i = 1; i <= config.NumberOfGenerations; i++)
 {
-    
-    listOfLines.Add(config.Format
-        .Replace("$mac$", macAddressGenerator.Generate())
-        .Replace("$ip$", ipAddressGenerator.Generate())
-        .Replace("$hostname$",hostnameGenerator.Generate(i)));
+    if (config.MacConfig.StringCasing != null)
+        listOfLines.Add(config.Format
+            .Replace("$mac$",
+                macAddressGenerator.Generate(config.MacConfig.Separator.ToString(), config.MacConfig.StringCasing))
+            .Replace("$ip$", ipAddressGenerator.Generate())
+            .Replace("$hostname$", hostnameGenerator.Generate(i)));
 
-    
+
     if (i % 20 == 0)
     {
         File.AppendAllLines(config.OutputFile!, listOfLines);
