@@ -64,8 +64,7 @@ if (config.NumberOfGenerations >= 4294967296)
 var listOfLines = new List<string>();
 for (var i = 1; i <= config.NumberOfGenerations; i++)
 {
-    if (config.MacConfig.StringCasing != null)
-        listOfLines.Add(config.Format
+    listOfLines.Add(config.Format
             .Replace("$mac$",macAddressGenerator.Generate(config.GenerateUniqueMacs))
             .Replace("$ip$", ipAddressGenerator.Generate(config.GenerateUniqueIps))
             .Replace("$hostname$", hostnameGenerator.Generate(i)));
@@ -80,10 +79,3 @@ for (var i = 1; i <= config.NumberOfGenerations; i++)
 
 if (listOfLines.Any())
     File.AppendAllLines(config.OutputFile!, listOfLines);
-
-
-
-
-
-Console.WriteLine("Done ");
-Console.ReadKey();

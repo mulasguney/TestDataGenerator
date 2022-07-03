@@ -1,9 +1,7 @@
 namespace TestDataGenerator;
-
 public class GeneralConfig
 {
     public static string DefaultConfigFilePath = string.Empty;
-
     public string Format { get; set; }
     public List<string>? IpRangesStr { get; set; }
     public bool GenerateUniqueIps { get; set; }
@@ -15,7 +13,6 @@ public class GeneralConfig
 
     public static GeneralConfig GetDefaultConfig()
     {
-
         return new GeneralConfig
         {
             Format = "$mac$,$ip$,$hostname$",
@@ -31,6 +28,5 @@ public class GeneralConfig
                 Prefixes = new List<string>()
             }
         };
-
     }
 }
