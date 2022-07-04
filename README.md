@@ -5,6 +5,7 @@ Welcome to TestDataGenerator
 
 This application generate ip,mac and hostname as your want.
 
+OPTIONS CAN CHANGE FROM CONFIG FILE.
 
 Format : This method says what will be generate .Even names are change it will generate ip,mac and hostname
 
