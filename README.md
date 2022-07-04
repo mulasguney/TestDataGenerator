@@ -5,33 +5,32 @@ Welcome to TestDataGenerator
 
 This application generate ip,mac and hostname as your want.
 
-OPTIONS CAN CHANGE FROM CONFIG FILE.
+***OPTIONS CAN CHANGE FROM CONFIG FILE***
 
-Format : This method says what will be generate .Even names are change it will generate ip,mac and hostname
 
-IpRangesStr :: This method specify ranges of ip address.
+---------------------------------------------------------------------------------------------------------------------------------
+## CONFIG FILE
 
-If network address is 0-8, ip address ranges between 0.0.0.0 - 255.0.0.0
-If network address is 8-16, ip address ranges between 0.0.0.0 - 255.255.0.0
-If network address is 16-24, ip address ranges between 0.0.0.0 - 255.255.255.0
-If network address is 24-32, ip address ranges between 0.0.0.0 - 255.255.255.255
++ **Format** : This config parameter says what will be generate .Even names are change it will generate ip,mac and hostname
 
-GenerateUniqueIps : This method specify is ip address unique or not.If it is true you cannot find same 2 ip address.
++ **NetworkAddresses** : This config parameter specify ranges of ip address.
 
-GenerateUniqueMac : This method specify is mac address unique or not.If it is true you cannot find same 2 mac addres.
++ **GenerateUniqueIps** : This config parameter specify is ip address unique or not.If it is true you cannot find same 2 ip address.
 
-NumberOfGenerations : This method specify how many to produce.
++ **GenerateUniqueMac** : This config parameter specify is mac address unique or not.If it is true you cannot find same 2 mac addres.
 
-OutputFile : This method specify where to write the file.
++ **NumberOfGenerations** : This config parameter specify how many to produce.
 
-HostnameFormat : This method specify the hostname.
++ **OutputFile** : This config parameter specify where to write the file.
 
-MacConfig : This method specify mac address options with subclasses.
++ **HostnameFormat** : This config parameter specify the hostname.
+
++ **MacConfig** : This config parameter specify mac address options with subclasses.
   
-  Seperator : This method is specify parameters between two bytes.
+  + **Seperator** : This parameter is specify parameters between two bytes.
   
-  StringCasing : This method is specify spelling of letter.(upper or lower case)
+  + **StringCasing** : This parameter is specify spelling of letter.(upper or lower case)
   
-  Prefixes :: This method specify prefix of mac address.
+  + **Prefixes** : This parameter specify prefix of mac address.
 
-
+---------------------------------------------------------------------------------------------------------------------------------
