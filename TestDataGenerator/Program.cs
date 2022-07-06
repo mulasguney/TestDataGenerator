@@ -52,30 +52,23 @@ var ipAddressGenerator = new IpAddressGenerator();
 var macAddressGenerator = new MacAddressGenerator(config!.MacConfig);
 var hostnameGenerator = new HostnameGenerator();
 
-
 if (File.Exists(config.OutputFile))
     File.Delete(config.OutputFile);
 
-if (config.NumberOfGenerations >= 4294967296)
-{
-    throw new Exception("You cannot produce more than 4294967296 Ips");
-}
-
+ipAddressGenerator.GenerationControl(config.NumberOfGenerations);
 var listOfLines = new List<string>();
-for (var i = 1; i <= config.NumberOfGenerations; i++)
+for (int i = 1; i <= config.NumberOfGenerations; i++)
 {
     listOfLines.Add(config.Format
             .Replace("$mac$",macAddressGenerator.Generate(config.GenerateUniqueMacs))
             .Replace("$ip$", ipAddressGenerator.Generate(config.GenerateUniqueIps))
             .Replace("$hostname$", hostnameGenerator.Generate(i)));
-
-
     if (i % 20 == 0)
     {
         File.AppendAllLines(config.OutputFile!, listOfLines);
         listOfLines.Clear();
     }
 }
-
 if (listOfLines.Any())
     File.AppendAllLines(config.OutputFile!, listOfLines);
+    
