@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="IPNetwork2" Version="2.5.422" />
+      <PackageReference Include="ProgressBar" Version="1.0.10" />
+    </ItemGroup>
+
 </Project>

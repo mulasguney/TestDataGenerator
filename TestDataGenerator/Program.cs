@@ -65,7 +65,7 @@ for (var i = 1; i <= config.NumberOfGenerations; i++)
 {
     listOfLines.Add(config.Format!
             .Replace("$mac$",macAddressGenerator.Generate(config.GenerateUniqueMacs))
-            .Replace("$ip$", ipAddressGenerator.Generate(config.GenerateUniqueIps))
+            .Replace("$ip$", ipAddressGenerator.Generate(config.GenerateUniqueIps,config.NetworkAddresses))
             .Replace("$hostname$", hostnameGenerator.Generate(i)));
     if (i % 20 == 0)
     {
